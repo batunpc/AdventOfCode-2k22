@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.cpp": "cpp",
+    "*.ng.html": "html",
+    "*.in": "cpp",
+    "h.in": "cpp",
+    "string_view": "cpp",
+    "int32_t": "cpp",
+    "iostream": "cpp"
+  }
+}
