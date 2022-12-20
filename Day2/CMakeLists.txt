@@ -1,4 +1,2 @@
-add_executable(${DAY2_EXE} "main.cpp")
-target_link_libraries(${DAY2_EXE} PUBLIC
-  ${AOFC_UTILS_LIB}
-)
+add_subdirectory("part1")
+add_subdirectory("part2")

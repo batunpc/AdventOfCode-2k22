@@ -3,10 +3,6 @@ project(aofc2k22 VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-
-set(DAY1_EXE "day1")
-set(DAY2_EXE "day2")
-
 set(AOFC_UTILS_LIB "library")
 
 add_subdirectory(utils)

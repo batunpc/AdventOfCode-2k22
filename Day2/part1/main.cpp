@@ -4,7 +4,7 @@
 #include <map>
 
 int main(int argc, char *argv[]) {
-  std::ifstream puzzle("input.txt");
+  std::ifstream puzzle("../input.txt");
   std::string lines;
   unsigned int score = 0;
 
@@ -33,5 +33,7 @@ int main(int argc, char *argv[]) {
     }
     puzzle.close();
     std::cout << "Score: " << score << std::endl;
+  } else {
+    std::cerr << "Error opening the file" << std::endl;
   }
 }
