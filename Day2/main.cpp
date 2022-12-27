@@ -27,6 +27,35 @@ int part1(std::vector<std::string> lines, char winner_table[3][2],
   return score;
 }
 
+int part2(std::vector<std::string> lines, std::map<char, int> moves) {
+  unsigned int score = 0;
+
+  for (auto line : lines) {
+    if (line[2] == 'X') {
+      if (line[0] == 'A') {
+        score += moves['C'];
+      } else if (line[0] == 'B') {
+        score += moves['A'];
+      } else if (line[0] == 'C') {
+        score += moves['B'];
+      }
+    }
+    if (line[2] == 'Y') {
+      score += moves[line[0]] + 3;
+    }
+    if (line[2] == 'Z') {
+      if (line[0] == 'A') {
+        score += moves['B'] + 6;
+      } else if (line[0] == 'B') {
+        score += moves['C'] + 6;
+      } else if (line[0] == 'C') {
+        score += moves['A'] + 6;
+      }
+    }
+  }
+  return score;
+}
+
 int main(int argc, char *argv[]) {
   auto lines = sdds::read("input.txt");
   char winner_table[3][2] = {{'C', 'X'}, {'A', 'Y'}, {'B', 'Z'}};
@@ -37,5 +66,7 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Part 1: " << part1(lines, winner_table, loser_table, moves)
             << std::endl;
+  std::cout << "Part 2: " << part2(lines, moves) << std::endl;
+
   return 0;
 }
