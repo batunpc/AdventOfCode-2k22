@@ -12,3 +12,6 @@ file(COPY Day1/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day1)
 
 add_subdirectory(Day2)
 file(COPY Day2/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day2)
+
+add_subdirectory(Day3)
+file(COPY Day3/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day3)
