@@ -4,8 +4,9 @@
 #include <map>
 #include <vector>
 
-int part1(std::vector<std::string> lines, char winner_table[3][2],
-          char loser_table[3][2], std::map<char, int> moves) {
+unsigned int part1(const std::vector<std::string> &lines,
+                   char winner_table[3][2], char loser_table[3][2],
+                   std::map<char, int> moves) {
   unsigned int score = 0;
 
   for (auto line : lines) {
@@ -27,7 +28,8 @@ int part1(std::vector<std::string> lines, char winner_table[3][2],
   return score;
 }
 
-int part2(std::vector<std::string> lines, std::map<char, int> moves) {
+unsigned int part2(const std::vector<std::string> &lines,
+                   std::map<char, int> moves) {
   unsigned int score = 0;
 
   for (auto line : lines) {

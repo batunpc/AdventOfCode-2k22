@@ -1,11 +1,10 @@
 #include "FileHandler.h"
-#include <fstream>
 #include <iostream>
 #include <vector>
 
-int part1(std::vector<std::string> lines) {
+int part1(const std::vector<std::string> &lines) {
   int sum_of_cal, max = 0;
-  for (auto line : lines) {
+  for (const auto &line : lines) {
     if (!line.empty()) {
       sum_of_cal += std::stoi(line);
     } else {
@@ -18,11 +17,11 @@ int part1(std::vector<std::string> lines) {
   return max;
 }
 
-int part2(std::vector<std::string> lines) {
+int part2(const std::vector<std::string> &lines) {
   int highest[3] = {0, 0, 0};
   int sum_of_cal = 0;
 
-  for (auto line : lines) {
+  for (const auto &line : lines) {
     if (!line.empty()) {
       sum_of_cal += std::stoi(line);
     } else {
