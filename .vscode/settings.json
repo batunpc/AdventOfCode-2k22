@@ -3,6 +3,10 @@
   "files.associations": {
     "*.cpp": "cpp",
     "*.ng.html": "html",
+    "*.in": "cpp",
+    "h.in": "cpp",
+    "string_view": "cpp",
+    "int32_t": "cpp",
     "iostream": "cpp",
     "__bit_reference": "cpp",
     "__bits": "cpp",
@@ -56,7 +60,6 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "string": "cpp",
-    "string_view": "cpp",
     "system_error": "cpp",
     "tuple": "cpp",
     "type_traits": "cpp",
@@ -72,6 +75,8 @@
     "deque": "cpp",
     "fstream": "cpp",
     "iomanip": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "__tree": "cpp",
+    "map": "cpp"
   }
 }
