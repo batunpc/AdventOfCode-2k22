@@ -15,11 +15,9 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-cmake -S .. -B . && cmake --build . --target $1
+cmake -S .. -B . -G Ninja && cmake --build . --target $1 -- -j 4
 
 if [ $? -eq 0 ]; then
-    hr
-    echo "Running $1"
     hr
     cd $OLDPWD/build/$1 && ./$1
 else
