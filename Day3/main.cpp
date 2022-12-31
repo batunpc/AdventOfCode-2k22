@@ -17,17 +17,17 @@ auto letterPoints() {
   return points;
 }
 
-void divider(const std::string line, std::string *first_half,
+void divider(const std::string &line, std::string *first_half,
              std::string *second_half) {
   *first_half = line.substr(0, line.length() / 2);
   *second_half = line.substr(line.length() / 2, line.length() / 2);
 }
 
-std::string detectRep(const std::string first, const std::string second) {
+std::string detectRep(const std::string &first, const std::string &second) {
   std::string rep;
-  for (int i = 0; i < first.length(); i++) {
-    if (second.find(first[i]) != std::string::npos) {
-      rep.push_back(first[i]);
+  for (char i : first) {
+    if (second.find(i) != std::string::npos) {
+      rep.push_back(i);
       break;
     }
   }
@@ -39,7 +39,7 @@ auto part1(const std::vector<std::string> &lines) {
   int sum = 0;
   auto uPoints = letterPoints();
 
-  for (auto line : lines) {
+  for (const auto &line : lines) {
     divider(line, &first_half, &second_half);
     rep = detectRep(first_half, second_half);
 
@@ -69,8 +69,8 @@ int part2(const std::vector<std::string> &lines) {
   int sum = 0;
   auto uPoints = letterPoints();
 
-  for (int i = 0; i < groups.size(); i++) {
-    std::stringstream ss(groups[i]);
+  for (auto &group : groups) {
+    std::stringstream ss(group);
     std::string word;
     while (ss >> word) {
       item.push_back(word);
