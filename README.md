@@ -1,3 +1,5 @@
-# Advent Of Code 2022
+<h3 align="center">advent-of-code-2022</h3>
 
-This repository contains my solutions to the [Advent of Code 2022](https://adventofcode.com/2022) challenges.
+<p align="center">
+  <b>:christmas_tree:</b>
+</p>

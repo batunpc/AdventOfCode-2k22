@@ -1,6 +1,7 @@
 #include "FileHandler.h"
 #include <iostream>
 #include <map>
+#include <sstream>
 
 auto letterPoints() {
   std::map<char, int> points;
@@ -33,10 +34,9 @@ std::string detectRep(const std::string first, const std::string second) {
   return rep;
 }
 
-int main(int argc, char *argv[]) {
-  auto lines = sdds::read("input.txt");
+auto part1(const std::vector<std::string> &lines) {
   std::string first_half, second_half, rep;
-  int sum;
+  int sum = 0;
   auto uPoints = letterPoints();
 
   for (auto line : lines) {
@@ -44,9 +44,53 @@ int main(int argc, char *argv[]) {
     rep = detectRep(first_half, second_half);
 
     for (auto i : rep) {
-      // std::cout << uPoints[i] << std::endl;
       sum += uPoints[i];
     }
   }
-  std::cout << "Part 1: " << sum << std::endl;
+  return sum;
+}
+
+std::vector<std::string> splitIn(const std::vector<std::string> &lines,
+                                 int digit) {
+  std::vector<std::string> groups;
+  for (int i = 0; i < lines.size(); i += digit) {
+    std::string group;
+    for (int j = 0; j < digit; j++) {
+      group += lines[i + j] + " ";
+    }
+    groups.push_back(group);
+  }
+  return groups;
+}
+
+int part2(const std::vector<std::string> &lines) {
+  auto groups = splitIn(lines, 3);
+  std::vector<std::string> item;
+  int sum = 0;
+  auto uPoints = letterPoints();
+
+  for (int i = 0; i < groups.size(); i++) {
+    std::stringstream ss(groups[i]);
+    std::string word;
+    while (ss >> word) {
+      item.push_back(word);
+    }
+  }
+
+  for (int i = 0; i < item.size(); i += 3) {
+    for (int j = 0; j < item[i].length(); j++) {
+      if (item[i + 1].find(item[i][j]) != std::string::npos) {
+        sum += uPoints[item[i][j]];
+        break;
+      }
+    }
+  }
+  return sum;
+}
+
+int main(int argc, char *argv[]) {
+  auto lines = sdds::read("input.txt");
+
+  std::cout << "Part 1: " << part1(lines) << std::endl;
+  std::cout << "Part 2: " << part2(lines) << std::endl;
 }
