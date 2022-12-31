@@ -79,7 +79,8 @@ int part2(const std::vector<std::string> &lines) {
 
   for (int i = 0; i < item.size(); i += 3) {
     for (int j = 0; j < item[i].length(); j++) {
-      if (item[i + 1].find(item[i][j]) != std::string::npos) {
+      if (item[i + 1].find(item[i][j]) != std::string::npos &&
+          item[i + 2].find(item[i][j]) != std::string::npos) {
         sum += uPoints[item[i][j]];
         break;
       }
