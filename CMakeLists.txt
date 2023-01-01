@@ -7,11 +7,9 @@ set(AOFC_UTILS_LIB "library")
 
 add_subdirectory(utils)
 
-add_subdirectory(Day1)
-file(COPY Day1/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day1)
+set(DAYS Day1 Day2 Day3 Day4)
 
-add_subdirectory(Day2)
-file(COPY Day2/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day2)
-
-add_subdirectory(Day3)
-file(COPY Day3/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Day3)
+foreach(DAY ${DAYS})
+    add_subdirectory(${DAY})
+    file(COPY ${DAY}/input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${DAY})
+endforeach()
