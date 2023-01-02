@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <vector>
 
 unsigned int part1(const std::vector<std::string> &lines,
                    char winner_table[3][2], char loser_table[3][2],
