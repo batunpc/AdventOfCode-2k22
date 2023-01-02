@@ -4,7 +4,7 @@
 set -e
 
 hr() {
-    echo "+=============+" | lolcat
+    echo "🎄=============🎄" | lolcat
 }
 
 # Define variables for file and directory paths
@@ -23,7 +23,8 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-cmake -S .. -B . -G Ninja && ninja -t color && cmake --build . --target "$1" -- -j 4 || exit 1
+cmake -S .. -B . -G Ninja &&
+    cmake --build . --target "$1" -- -j 4 || exit 1
 
 hr
 cd "$OLDPWD/$BUILD_DIR/$1" && ./"$1" || exit 1
