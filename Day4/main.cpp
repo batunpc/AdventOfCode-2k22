@@ -2,6 +2,7 @@
 #include <iostream>
 #include <set>
 #include <sstream>
+#include <vector>
 
 std::vector<std::string> tokenizer(std::string line, char delimiter) {
   std::vector<std::string> tokens;

@@ -78,6 +78,8 @@
     "stack": "cpp",
     "__tree": "cpp",
     "map": "cpp",
-    "set": "cpp"
+    "set": "cpp",
+    "regex": "cpp",
+    "unordered_set": "cpp"
   }
 }
