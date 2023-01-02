@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <vector>
 
 auto letterPoints() {
   std::map<char, int> points;
