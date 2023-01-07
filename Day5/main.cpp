@@ -5,7 +5,10 @@
 #include <stack>
 #include <vector>
 
-int getNumOfStacks(const std::string &lastLine) {
+using Stacks = std::vector<std::stack<char>>;
+using Lines = std::vector<std::string>;
+
+const int getNumOfStacks(const std::string &lastLine) {
   int number_of_stacks = 0;
   std::stringstream ss(lastLine);
   while (ss) {
@@ -18,17 +21,11 @@ int getNumOfStacks(const std::string &lastLine) {
   return number_of_stacks;
 }
 
-int main(int argc, char *argv[]) {
-  auto lines = sdds::read("input.txt");
-  // find empty line from the entire file
-  auto empty_line = std::find(lines.begin(), lines.end(), "");
-  // get the line before the empty line (the labels <num>)
-  const auto &stack_labels = *(empty_line - 1);
-  // get the largest number in the labels
-  const int no_of_stacks = getNumOfStacks(stack_labels);
-  std::cout << "Number of stacks: " << no_of_stacks << std::endl;
+// auto empty_line = Lines::iterator{};
+auto empty_line = Lines::iterator{};
 
-  auto stacks = std::vector<std::stack<char>>{};
+Stacks parseStacks(const Lines &lines, const std::string &stack_labels) {
+  auto stacks = Stacks{};
 
   for (int i = 0; i < stack_labels.size(); i++) {
 
@@ -49,6 +46,10 @@ int main(int argc, char *argv[]) {
     stacks.emplace_back(current_stack);
   }
 
+  return stacks;
+}
+
+void printStacks(const Stacks &stacks) {
   for (int i = 0; i < stacks.size(); i++) {
     std::cout << "Stack " << i + 1 << ": ";
     auto temp_stack = stacks[i];
@@ -58,8 +59,9 @@ int main(int argc, char *argv[]) {
     }
     std::cout << std::endl;
   }
+}
 
-  // process the procedures for moves
+void processMoves(const Lines &lines, Stacks &stacks) {
   for (auto it = empty_line + 1; it != lines.end(); it++) {
     const auto &line = *it;
 
@@ -83,8 +85,30 @@ int main(int argc, char *argv[]) {
       amo--;
     }
   }
+}
+
+int main(int argc, char *argv[]) {
+  auto lines = sdds::read("input.txt");
+  // find empty line from the entire file
+  empty_line = std::find(lines.begin(), lines.end(), "");
+  // get the labels <num>
+  const auto &stack_labels = *(empty_line - 1);
+  // get the largest number in the labels
+  const int no_of_stacks = getNumOfStacks(stack_labels);
+  std::cout << "Number of stacks: " << no_of_stacks << std::endl;
+
+  // create the stacks
+  auto stacks = parseStacks(lines, stack_labels);
+
+  // print the stacks
+  // printStacks(stacks);
+
+  processMoves(lines, stacks);
+
   std::cout << "Final state: " << std::endl;
+
   for (int i = 0; i < stacks.size(); i++) {
     std::cout << stacks[i].top();
   }
+  std::cout << std::endl;
 }
