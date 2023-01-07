@@ -18,8 +18,9 @@ int getNumOfStacks(const std::string &lastLine) {
   return number_of_stacks;
 }
 
-std::pair<std::vector<std::stack<char>>, std::string>
-createStacks(const std::vector<std::string> &lines) {
+int main(int argc, char *argv[]) {
+  auto lines = sdds::read("input.txt");
+  // find empty line from the entire file
   auto empty_line = std::find(lines.begin(), lines.end(), "");
   // get the line before the empty line (the labels <num>)
   const auto &stack_labels = *(empty_line - 1);
@@ -30,15 +31,15 @@ createStacks(const std::vector<std::string> &lines) {
   auto stacks = std::vector<std::stack<char>>{};
 
   for (int i = 0; i < stack_labels.size(); i++) {
+
     if (stack_labels[i] == ' ') {
       continue;
     }
 
     auto current_stack = std::stack<char>{};
 
-    for (auto lineIndex = empty_line - 2; lineIndex != lines.begin() - 1;
-         lineIndex--) {
-      const auto &line = *lineIndex;
+    for (auto it = empty_line - 2; it != lines.begin() - 1; it--) {
+      const auto &line = *it;
       const auto &crate = line[i];
       if (crate == ' ') {
         break;
@@ -48,11 +49,6 @@ createStacks(const std::vector<std::string> &lines) {
     stacks.emplace_back(current_stack);
   }
 
-  return {stacks, stack_labels};
-}
-
-void printStacks(const std::vector<std::stack<char>> &stacks,
-                 const std::string &stackLabels) {
   for (int i = 0; i < stacks.size(); i++) {
     std::cout << "Stack " << i + 1 << ": ";
     auto temp_stack = stacks[i];
@@ -62,11 +58,33 @@ void printStacks(const std::vector<std::stack<char>> &stacks,
     }
     std::cout << std::endl;
   }
-}
 
-int main(int argc, char *argv[]) {
+  // process the procedures for moves
+  for (auto it = empty_line + 1; it != lines.end(); it++) {
+    const auto &line = *it;
 
-  const auto lines = sdds::read("input.txt");
-  const auto [stacks, stackLabels] = createStacks(lines);
-  printStacks(stacks, stackLabels);
+    std::stringstream ss(line);
+    std::string word;
+    std::vector<int> numbers;
+    while (ss >> word) {
+      if (std::isdigit(word[0])) {
+        numbers.push_back(std::stoi(word));
+      }
+    }
+    int amo = numbers[0];
+    int from = numbers[1];
+    int to = numbers[2];
+    // std::cout << "Move crate(s) " << numbers[0] << " from stack " <<
+    // numbers[1]
+    //          << " to stack " << numbers[2] << std::endl;
+    while (amo > 0) {
+      stacks[to - 1].push(stacks[from - 1].top());
+      stacks[from - 1].pop();
+      amo--;
+    }
+  }
+  std::cout << "Final state: " << std::endl;
+  for (int i = 0; i < stacks.size(); i++) {
+    std::cout << stacks[i].top();
+  }
 }
