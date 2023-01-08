@@ -1,9 +1,10 @@
-#include "FileHandler.h"
 #include <iostream>
 #include <regex>
 #include <sstream>
 #include <stack>
 #include <vector>
+
+#include "FileHandler.h"
 
 using Stacks = std::vector<std::stack<char>>;
 using Lines = std::vector<std::string>;
@@ -28,7 +29,6 @@ Stacks parseStacks(const Lines &lines, const std::string &stack_labels) {
   auto stacks = Stacks{};
 
   for (int i = 0; i < stack_labels.size(); i++) {
-
     if (stack_labels[i] == ' ') {
       continue;
     }
