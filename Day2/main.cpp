@@ -1,8 +1,9 @@
-#include "FileHandler.h"
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <vector>
+
+#include "FileHandler.h"
 
 unsigned int part1(const std::vector<std::string> &lines,
                    char winner_table[3][2], char loser_table[3][2],
@@ -12,17 +13,17 @@ unsigned int part1(const std::vector<std::string> &lines,
   for (auto line : lines) {
     for (int i = 0; i < 3; i++) {
       if (line[0] == winner_table[i][0] && line[2] == winner_table[i][1]) {
-        score += moves[line[2]] + 6; // win
+        score += moves[line[2]] + 6;  // win
       }
     }
     for (int i = 0; i < 3; i++) {
       if (line[0] == loser_table[i][0] && line[2] == loser_table[i][1]) {
-        score += moves[line[2]]; // lose
+        score += moves[line[2]];  // lose
       }
     }
 
     if (moves[line[0]] == moves[line[2]]) {
-      score += moves[line[2]] + 3; // draw
+      score += moves[line[2]] + 3;  // draw
     }
   }
   return score;

@@ -1,8 +1,9 @@
-#include "FileHandler.h"
 #include <iostream>
 #include <set>
 #include <sstream>
 #include <vector>
+
+#include "FileHandler.h"
 
 std::vector<std::string> tokenizer(std::string line, char delimiter) {
   std::vector<std::string> tokens;
@@ -57,7 +58,6 @@ int part1(const std::vector<std::string> &lines,
 
 int part2(const std::vector<std::string> &lines,
           const std::vector<std::string> groups) {
-
   size_t count = 0;
   for (auto i : groups) {
     auto tokens = tokenizer(i, ',');

@@ -1,6 +1,7 @@
-#include "FileHandler.h"
 #include <iostream>
 #include <vector>
+
+#include "FileHandler.h"
 
 int part1(const std::vector<std::string> &lines) {
   int sum_of_cal, max = 0;

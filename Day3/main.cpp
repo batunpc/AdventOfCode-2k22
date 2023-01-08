@@ -1,8 +1,9 @@
-#include "FileHandler.h"
 #include <iostream>
 #include <map>
 #include <sstream>
 #include <vector>
+
+#include "FileHandler.h"
 
 auto letterPoints() {
   std::map<char, int> points;
