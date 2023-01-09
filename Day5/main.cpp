@@ -5,24 +5,22 @@
 #include <vector>
 
 #include "FileHandler.h"
+#include "Logger.h"
 
 using Stacks = std::vector<std::stack<char>>;
 using Lines = std::vector<std::string>;
 
 const int getNumOfStacks(const std::string &lastLine) {
   int number_of_stacks = 0;
-  std::stringstream ss(lastLine);
-  while (ss) {
-    int number;
-    ss >> number;
-    if (number > number_of_stacks) {
-      number_of_stacks = number;
+  for (int i = 0; i < lastLine.size(); i++) {
+    if (lastLine[i] == ' ') {
+      continue;
     }
+    number_of_stacks++;
   }
   return number_of_stacks;
 }
 
-// auto empty_line = Lines::iterator{};
 auto empty_line = Lines::iterator{};
 
 Stacks parseStacks(const Lines &lines, const std::string &stack_labels) {
@@ -61,7 +59,7 @@ void printStacks(const Stacks &stacks) {
   }
 }
 
-void processMoves(const Lines &lines, Stacks &stacks) {
+Stacks processMoves(const Lines &lines, Stacks &stacks) {
   for (auto it = empty_line + 1; it != lines.end(); it++) {
     const auto &line = *it;
 
@@ -73,18 +71,15 @@ void processMoves(const Lines &lines, Stacks &stacks) {
         numbers.push_back(std::stoi(word));
       }
     }
-    int amo = numbers[0];
-    int from = numbers[1];
-    int to = numbers[2];
-    // std::cout << "Move crate(s) " << numbers[0] << " from stack " <<
-    // numbers[1]
-    //          << " to stack " << numbers[2] << std::endl;
+    int amo = numbers[0], from = numbers[1], to = numbers[2];
+
     while (amo > 0) {
       stacks[to - 1].push(stacks[from - 1].top());
       stacks[from - 1].pop();
       amo--;
     }
   }
+  return stacks;
 }
 
 int main(int argc, char *argv[]) {
@@ -95,20 +90,15 @@ int main(int argc, char *argv[]) {
   const auto &stack_labels = *(empty_line - 1);
   // get the largest number in the labels
   const int no_of_stacks = getNumOfStacks(stack_labels);
-  std::cout << "Number of stacks: " << no_of_stacks << std::endl;
-
   // create the stacks
   auto stacks = parseStacks(lines, stack_labels);
 
-  // print the stacks
-  // printStacks(stacks);
+  stacks = processMoves(lines, stacks);
 
-  processMoves(lines, stacks);
-
-  std::cout << "Final state: " << std::endl;
-
-  for (int i = 0; i < stacks.size(); i++) {
-    std::cout << stacks[i].top();
+  std::string top_str;
+  for (auto &stack : stacks) {
+    top_str += stack.top();
   }
-  std::cout << std::endl;
+
+  challenge::log(top_str, 1);  // part 1
 }
