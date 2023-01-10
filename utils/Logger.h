@@ -4,11 +4,9 @@
 #include <iostream>
 
 constexpr char RESET[] = "\033[0m";
-constexpr char GREEN[] = "\033[32m";
-constexpr char YELLOW[] = "\033[33m";
+constexpr char GREEN[] = "\033[1;32m";
+constexpr char YELLOW[] = "\033[1;33m";
 constexpr char BLUE[] = "\033[34m";
-
-// get directory name
 
 namespace challenge {
 
@@ -27,7 +25,7 @@ namespace challenge {
     } else {
       std::cout << "🌙";
     }
-    std::cout << GREEN << " (" << now_str << ") " << RESET << YELLOW << "part"
+    std::cout << GREEN << " [" << now_str << "] " << RESET << YELLOW << "part"
               << part << RESET << " : " << color << answer << RESET
               << std::endl;
   }
