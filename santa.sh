@@ -3,7 +3,7 @@
 set -e
 
 hr() {
-    echo "🎄=============🎄" | lolcat
+    echo "🎄==========================🎄" | lolcat
 }
 
 BUILD_DIR=build

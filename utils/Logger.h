@@ -1,19 +1,32 @@
-#ifndef CHALLENGE_SOLUTIONS_H
-#define CHALLENGE_SOLUTIONS_H
+#pragma once
 
+#include <chrono>
 #include <iostream>
 
-namespace challenge {
-  namespace part1 {
-    inline void printSolution(int answer) {
-      std::cout << "part1 answer: " << answer << std::endl;
-    }
-  }  // namespace part1
-  namespace part2 {
-    inline void printSolution(int answer) {
-      std::cout << "part2 answer: " << answer << std::endl;
-    }
-  }  // namespace part2
-}  // namespace challenge
+constexpr char RESET[] = "\033[0m";
+constexpr char GREEN[] = "\033[1;32m";
+constexpr char YELLOW[] = "\033[1;33m";
+constexpr char BLUE[] = "\033[34m";
 
-#endif
+namespace challenge {
+
+  template <typename T>
+
+  void log(const T& answer, int part, const char* color = BLUE,
+           std::ostream& out = std::cout) {
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+    std::tm tm = *std::localtime(&now_time);
+    char now_str[9];
+    std::strftime(now_str, sizeof(now_str), "%T", &tm);
+    std::cout << "\r";
+    if (tm.tm_hour >= 6 && tm.tm_hour < 18) {
+      std::cout << "👾";
+    } else {
+      std::cout << "🌙";
+    }
+    std::cout << GREEN << " [" << now_str << "] " << RESET << YELLOW << "part"
+              << part << RESET << " : " << color << answer << RESET
+              << std::endl;
+  }
+}  // namespace challenge
