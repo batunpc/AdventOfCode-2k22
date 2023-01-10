@@ -59,7 +59,12 @@ void printStacks(const Stacks &stacks) {
   }
 }
 
-Stacks processMoves(const Lines &lines, Stacks &stacks) {
+void moveBlock(Stacks &stacks, int from, int to) {
+  stacks[to - 1].push(stacks[from - 1].top());
+  stacks[from - 1].pop();
+}
+
+Stacks processMoves(const Lines &lines, Stacks stacks, bool reverse) {
   for (auto it = empty_line + 1; it != lines.end(); it++) {
     const auto &line = *it;
 
@@ -72,14 +77,32 @@ Stacks processMoves(const Lines &lines, Stacks &stacks) {
       }
     }
     int amo = numbers[0], from = numbers[1], to = numbers[2];
-
+    auto crates = std::vector<char>{};
     while (amo > 0) {
-      stacks[to - 1].push(stacks[from - 1].top());
+      auto crate = stacks[from - 1].top();
       stacks[from - 1].pop();
+      crates.emplace_back(crate);
       amo--;
+    }
+    if (reverse) {
+      for (auto it = crates.rbegin(); it != crates.rend(); it++) {
+        stacks[to - 1].push(*it);
+      }
+    } else {
+      for (auto crate : crates) {
+        stacks[to - 1].push(crate);
+      }
     }
   }
   return stacks;
+}
+
+void logStacks(const Stacks &stacks, const int &label) {
+  std::string top_str;
+  for (const auto &stack : stacks) {
+    top_str += stack.top();
+  }
+  challenge::log(top_str, label);
 }
 
 int main(int argc, char *argv[]) {
@@ -93,12 +116,9 @@ int main(int argc, char *argv[]) {
   // create the stacks
   auto stacks = parseStacks(lines, stack_labels);
 
-  stacks = processMoves(lines, stacks);
+  auto stacks_part1 = processMoves(lines, stacks, false);
+  logStacks(stacks_part1, 1);  // part 1
 
-  std::string top_str;
-  for (auto &stack : stacks) {
-    top_str += stack.top();
-  }
-
-  challenge::log(top_str, 1);  // part 1
+  auto reverse_stacks = processMoves(lines, stacks, true);
+  logStacks(reverse_stacks, 2);  // part 2
 }
