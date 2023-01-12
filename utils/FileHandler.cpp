@@ -10,8 +10,6 @@ std::vector<std::string> sdds::read(const std::string &filename,
                                     char delimiter) {
   std::ifstream file(filename);
   if (!file.is_open()) {
-    // std::cerr << "Failed to open file: " << filename << std::endl;
-    //  Make the Error red and bold
     std::cerr << "\033[1;31m Error:\033[0m"
               << " Failed to open file: "
               << "\033[1;34m" << filename << "\033[0m" << std::endl;
