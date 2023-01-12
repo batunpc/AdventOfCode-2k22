@@ -7,7 +7,7 @@ set(AOFC_UTILS_LIB "library")
 # AoC Days
 # --------------
 set(DAYS)
-foreach(i RANGE 1 5)
+foreach(i RANGE 1 6)
     list(APPEND DAYS Day${i})
 endforeach()
 

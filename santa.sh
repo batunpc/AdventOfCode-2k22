@@ -3,7 +3,14 @@
 set -e
 
 hr() {
-    echo "🎄==========================🎄" | lolcat
+    if
+        command -v lolcat >/dev/null 2>&1
+    then
+        echo "🎄==========================🎄" | lolcat
+    else
+        echo "🎄==========================🎄"
+    fi
+    echo
 }
 
 BUILD_DIR=build
@@ -21,7 +28,7 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-cmake -S .. -B . -G Ninja &&
+cmake -S .. -B . -G Ninja >/dev/null &&
     cmake --build . --target "$1" -- -j 4 || exit 1
 
 hr
