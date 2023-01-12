@@ -8,39 +8,27 @@
 constexpr int packetMarker = 4;
 constexpr int messageMarker = 14;
 
-int main(int argc, char *argv[]) {
-  auto lines = sdds::read("input.txt");
-  //
+size_t countUniqueMarkerFor(const int marker, const std::string &line) {
+  for (size_t i = 0; i < line.size() - marker; i++) {
+    std::string packet = line.substr(i, marker);
 
-  for (const auto &line : lines) {
-    for (size_t i = 0; i < line.size() - packetMarker; i++) {
-      std::string packet = line.substr(i, packetMarker);
+    std::set<char> packetSet;
+    for (const auto &c : packet) {
+      packetSet.insert(c);
+    }
 
-      std::set<char> packetSet;
-      for (const auto &c : packet) {
-        packetSet.insert(c);
-      }
-
-      if (packetSet.size() == packetMarker) {
-        challenge::log(i + packetMarker, 1);
-        break;
-      }
+    if (packetSet.size() == marker) {
+      return i + marker;
     }
   }
+  return -1;
+}
+
+int main(int argc, char *argv[]) {
+  auto lines = sdds::read("input.txt");
 
   for (const auto &line : lines) {
-    for (size_t i = 0; i < line.size() - messageMarker; i++) {
-      std::string packet = line.substr(i, messageMarker);
-
-      std::set<char> packetSet;
-      for (const auto &c : packet) {
-        packetSet.insert(c);
-      }
-
-      if (packetSet.size() == messageMarker) {
-        challenge::log(i + messageMarker, 2);
-        break;
-      }
-    }
+    challenge::log(countUniqueMarkerFor(packetMarker, line), 1);
+    challenge::log(countUniqueMarkerFor(messageMarker, line), 2);
   }
 }
