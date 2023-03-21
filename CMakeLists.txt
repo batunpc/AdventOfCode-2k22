@@ -4,10 +4,16 @@ project(aofc2k22 VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(AOFC_UTILS_LIB "library")
 
+# set CMAKE_BUILD_TYPE to Debug or Release
+# ----------------------------------------
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
+
 # AoC Days
 # --------------
 set(DAYS)
-foreach(i RANGE 1 6)
+foreach(i RANGE 1 7)
     list(APPEND DAYS Day${i})
 endforeach()
 
