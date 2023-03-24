@@ -46,11 +46,7 @@ private:
   }
 
 public:
-  FileSystem() {
-    allDirectories["/"] = Directory{"/"};
-    // pwd.emplace_back("/");
-    pwd = std::vector<std::string>{{"/"}};
-  }
+  FileSystem() : allDirectories{{"/", Directory{"/"}}}, pwd{{"/"}} {}
 
   void processInput(const std::vector<std::string> &input) {
     std::regex cdre("cd\\s([a-zA-Z?\\/?..]+)");
@@ -106,31 +102,16 @@ public:
 
   int getTotalSize() {
     auto totalSize = 0;
-    // std::cout << "Directories with size <= 100000:" << std::endl;
     for (const auto &dir : allDirectories) {
       if (dir.second.size <= 100000) {
         totalSize += dir.second.size;
-        // std::cout << dir.second.path << " " << dir.second.size << std::endl;
       }
     }
     return totalSize;
   }
 
-  void printAllDirectories() {
-    for (const auto &dir : allDirectories) {
-      std::cout << dir.second.path << " " << dir.second.size << std::endl;
-    }
-  }
-
-  void printAllFiles() {
-    for (const auto &file : allFiles) {
-      std::cout << file.second.path << " " << file.second.size << std::endl;
-    }
-  }
-
-  void printAll() {
-    printAllDirectories();
-    printAllFiles();
+  const std::unordered_map<std::string, Directory> &getAllDirectories() const {
+    return allDirectories;
   }
 };
 
@@ -139,4 +120,28 @@ int main() {
   FileSystem fs;
   fs.processInput(input);
   challenge::log(fs.getTotalSize(), 1);
+
+  const auto curTotalSize = fs.getAllDirectories().at("/").size;
+
+  constexpr auto totalSpace = 70000000;
+  constexpr auto updateSize = 30000000;
+
+  const auto unusedSpace = totalSpace - curTotalSize;
+  const auto sizeToBeDeleted = updateSize - unusedSpace;
+
+  // sort directories by size smallest to largest
+  std::vector<std::pair<std::string, int>> dirs;
+  for (const auto &dir : fs.getAllDirectories()) {
+    dirs.emplace_back(dir.first, dir.second.size);
+  }
+
+  std::sort(dirs.begin(), dirs.end(),
+            [](const auto &a, const auto &b) { return a.second < b.second; });
+
+  for (const auto &dir : dirs) {
+    if (dir.second >= sizeToBeDeleted) {
+      challenge::log(dir.second, 2);
+      break;
+    }
+  }
 }
