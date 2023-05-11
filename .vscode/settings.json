@@ -84,6 +84,7 @@
     "numeric": "cpp",
     "queue": "cpp",
     "ranges": "cpp",
-    "span": "cpp"
+    "span": "cpp",
+    "__verbose_abort": "cpp"
   }
 }
