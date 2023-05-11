@@ -13,7 +13,7 @@ endif()
 # AoC Days
 # --------------
 set(DAYS)
-foreach(i RANGE 1 7)
+foreach(i RANGE 1 8)
     list(APPEND DAYS Day${i})
 endforeach()
 
